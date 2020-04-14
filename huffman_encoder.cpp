@@ -83,8 +83,9 @@ huffman_encoder::~huffman_encoder(){
 
 
 std::string huffman_encoder::get_character_code(char character) const {
-string charCode; 
+      string charCode; 
 
+      if (count.count(character) > 0) {
             MinHeapNode* curr = count.at(character); //curr node is the node, or key from the map.
 
         //Add a 1 or 0 based on if it's the left or right child of parent. 
@@ -99,10 +100,13 @@ string charCode;
                 }
                 curr = curr->p;
             }
-        
+        }
 
     //Else return an empty string
-       
+        else {
+            charCode = "\0"; 
+            
+        }
    
     return charCode;
 

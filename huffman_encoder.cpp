@@ -143,11 +143,9 @@ std::string huffman_encoder::encode(const std::string &file_name) const {
                encodedStr += get_character_code(ch); 
            }
 
-          
         }
     
    return encodedStr;
- 
 
 }
 

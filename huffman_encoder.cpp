@@ -115,9 +115,32 @@ std::string huffman_encoder::get_character_code(char character) const {
 }
 
 std::string huffman_encoder::encode(const std::string &file_name) const {
-   
+   string encodedStr; 
+    char ch; 
+
+    //takes in file name 
+   std::fstream input(file_name, std::fstream::in); 
+
+    if (input.fail()) {
+        throw std::runtime_error ("File does not exist"); 
+    }
+
+    input >> std::noskipws;
+
+    if (count.size() == 1) { //if only one letter 
+        return "0";
+    }
     
-   return "";
+
+        //Iterates through all characters in file
+        while (input >> ch) { 
+           
+               encodedStr += get_character_code(ch); 
+            
+          
+        }
+    
+   return encodedStr;
  
 
 }
@@ -125,8 +148,44 @@ std::string huffman_encoder::encode(const std::string &file_name) const {
     
 std::string huffman_encoder::decode(const std::string &string_to_decode) const {
     
-    return "";
- 
+    MinHeapNode* curr = root;
+    string decodedStr;
+
+
+    if (root == NULL) { //nothing in file 
+        throw std::runtime_error("Nothing in file"); 
+    }
+
+    if (string_to_decode.length() == 1) { //if only one letter 
+        return decodedStr = curr->data; 
+    }
+
+  else {
+    //Traverse the tree! 
+    for (int i = 0; i < string_to_decode.length(); i++) { 
+
+        if (curr && curr->right && string_to_decode[i] == '1') { 
+            curr = curr->right;
+        }
+
+        else if (curr && curr->left && string_to_decode[i] == '0'){ 
+            curr = curr->left;
+        }
+
+        else { //if character isn't 0 or 1 
+            return ""; 
+        }
+
+
+        //If a leaf node
+        if (curr && !curr->left && !curr->right) { 
+            decodedStr += curr->data; //add to the string 
+            curr = root; //reset the curr to the root 
+       
+        } 
+    }
+    return decodedStr;
+ }
     
 }
 

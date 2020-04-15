@@ -115,7 +115,7 @@ std::string huffman_encoder::get_character_code(char character) const {
 }
 
 std::string huffman_encoder::encode(const std::string &file_name) const {
-   string encodedStr; 
+    string encodedStr; 
     char ch; 
 
     //takes in file name 
@@ -134,9 +134,15 @@ std::string huffman_encoder::encode(const std::string &file_name) const {
 
         //Iterates through all characters in file
         while (input >> ch) { 
-           
+            //if character exists
+            if (get_character_code(ch) != "") {
+                encodedStr += get_character_code(ch); 
+
+            }
+           else { 
                encodedStr += get_character_code(ch); 
-            
+           }
+
           
         }
     
@@ -147,7 +153,7 @@ std::string huffman_encoder::encode(const std::string &file_name) const {
 
     
 std::string huffman_encoder::decode(const std::string &string_to_decode) const {
-    
+    //takes string from encode? and decodes that string 
     MinHeapNode* curr = root;
     string decodedStr;
 
